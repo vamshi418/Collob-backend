@@ -7,16 +7,15 @@ import javax.sql.DataSource;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.hibernate4.HibernateTransactionManager;
 import org.springframework.orm.hibernate4.LocalSessionFactoryBuilder;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
+import com.niit.dao.JobDao;
+import com.niit.dao.JobDaoImpl;
 import com.niit.dao.UsersDao;
 import com.niit.dao.UsersDaoImpl;
+import com.niit.model.Job;
 import com.niit.model.Users;
 
 
@@ -55,7 +54,7 @@ public class DBConfig
 		sessionBuilder.addProperties(getHibernateProperties());
 
 		sessionBuilder.addAnnotatedClasses(Users.class);
-	
+		 sessionBuilder.addAnnotatedClasses(Job.class);
 		/*  sessionBuilder.addAnnotatedClasses(Blog.class);
 		  sessionBuilder.addAnnotatedClasses(Friend.class);
 		  sessionBuilder.addAnnotatedClasses(Job.class);
@@ -83,7 +82,12 @@ public class DBConfig
 		
 		return new UsersDaoImpl();
 	}
-
+	@Autowired
+	@Bean(name="jobDao")
+	public JobDao getjobDAO(SessionFactory sessionFactory){
+		
+		return new JobDaoImpl();
+	}
 
 	
 }

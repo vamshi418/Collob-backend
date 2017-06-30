@@ -5,6 +5,7 @@ import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -12,16 +13,23 @@ import com.niit.model.Users;
 @Repository
 public class UsersDaoImpl implements UsersDao 
 {
-	@Autowired
-	private SessionFactory sessionFactory;
-	public void registration(Users users) 
-	{
-		Session session=sessionFactory.openSession();
-		session.save(users); 
-		session.flush();
-		session.close();
-	}
-	@Override
+	
+@Autowired
+private SessionFactory sessionFactory;
+
+public void registration(Users users) 
+{
+	Session session=sessionFactory.openSession();
+
+	Transaction tx=session.beginTransaction();
+	users.setEnabled(true);
+	users.setOnline(false);
+	session.save(users);
+	tx.commit();
+	session.flush();
+	session.close();
+}
+	
 	public List<Users> getAllUsers() 
 	{
 		Session session=sessionFactory.openSession();
@@ -33,6 +41,7 @@ public class UsersDaoImpl implements UsersDao
 	
 	public Users login(Users users)
 	{
+		System.out.println(users.getUsername()+""+users.getPassword());
 		Session session=sessionFactory.openSession();
 		Query query=session.createQuery("from users where username=? and password=? and enabled=?");
 		query.setString(0, users.getUsername()); //for assigning the values to parameter username
@@ -42,16 +51,13 @@ public class UsersDaoImpl implements UsersDao
 		session.close();
 		return validUsers;
 	}
-    
- public Users updateUser(Users validUser)
- {
-	 Session session=sessionFactory.openSession();
-	 session.update(validUser);
-	 session.flush();
-	 session.close();
-	 return validUser;
-	 
- }
-
-
+	
+	public Users updateUser(Users validUser)
+	{
+		Session session=sessionFactory.openSession();
+		session.update(validUser);
+		session.flush();
+		session.close();
+		return validUser;
+	}
 }
