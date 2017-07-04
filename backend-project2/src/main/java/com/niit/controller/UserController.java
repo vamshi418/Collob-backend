@@ -29,6 +29,8 @@ public class UserController
     
     @RequestMapping(value="/registration",method=RequestMethod.POST)
     
+   
+    
     public ResponseEntity<Void> createUser(@RequestBody Users user) {
         System.out.println("Creating User " + user.getFirstname());
  
@@ -46,27 +48,19 @@ public class UserController
 	    System.out.println("Is Session New For" + users.getUsername() + session.isNew());
 	    Users validUser=usersDao.login(users);
 	    if(validUser==null)
+
 	    {
 		    Error error=new Error(3,"Invalid username and password.. please enter valid credentials");
 		    return new ResponseEntity<Error>(error,HttpStatus.UNAUTHORIZED);
-		}
-		else
-		{
+		}	   
+	    else	
+	    {
 		    validUser.setOnline(true);
 		    validUser=usersDao.updateUser(validUser);
 		    session.setAttribute("user", validUser);
 		    return new ResponseEntity<Users>(validUser,HttpStatus.OK);    
 		}
 	}
-   /* @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public ResponseEntity<?> login(@RequestBody Users users,HttpSession session) {
-    	 Users validUser=usersDao.login(users);
-    	 validUser.setEnabled(true);
-    	 validUser.setOnline(true);
-    	 validUser=usersDao.updateUser(validUser);
-		    session.setAttribute("user", validUser);
-		    return new ResponseEntity<Users>(validUser,HttpStatus.OK); 
-    }*/
 	
 	@RequestMapping(value="/logout",method=RequestMethod.GET)
 	public ResponseEntity<?>logout(HttpSession session)

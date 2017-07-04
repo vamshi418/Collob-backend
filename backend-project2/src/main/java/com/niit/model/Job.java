@@ -1,13 +1,11 @@
-package com.niit.model;
+ package com.niit.model;
 
 import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
-import org.hibernate.validator.constraints.NotEmpty;
+import javax.persistence.Id; 
 
 @Entity
 public class Job 
@@ -15,11 +13,11 @@ public class Job
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
-	@NotEmpty
+
 	private String jobTitle;
-	@NotEmpty
+
 	private String jobDescription;
-	@NotEmpty
+
 	private String yrsOfExp;
 	private String skillsRequired;
 	private String salary;

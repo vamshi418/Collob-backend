@@ -43,13 +43,17 @@ public void registration(Users users)
 	{
 		System.out.println(users.getUsername()+""+users.getPassword());
 		Session session=sessionFactory.openSession();
-		Query query=session.createQuery("from users where username=? and password=? and enabled=?");
+		System.out.println("hello");
+		Query query=session.createQuery("from Users where username=? and password=? and enabled=?");
+		System.out.println("hell");
 		query.setString(0, users.getUsername()); //for assigning the values to parameter username
 		query.setString(1, users.getPassword());
 		query.setBoolean(2, true);
 		Users validUsers=(Users)query.uniqueResult();
 		session.close();
+		System.out.println("Dao completed");
 		return validUsers;
+		
 	}
 	
 	public Users updateUser(Users validUser)
