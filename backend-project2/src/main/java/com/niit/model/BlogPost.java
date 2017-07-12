@@ -11,12 +11,14 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+
 @Entity
+@Table(name="blogpost_batch19")
 public class BlogPost
 {
 	@Id
-	@GeneratedValue
-	private int id;	
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private int id;
 	private String title;
 	@Lob
 	private String description;
@@ -25,42 +27,52 @@ public class BlogPost
 	private Users createdBy;
 	private Date postedOn;
 	private boolean approved;
-
-	public int getId() {
+	public int getId()
+	{
 		return id;
 	}
-	public void setId(int id) {
+	public void setId(int id)
+	{
 		this.id = id;
 	}
-	public String getTitle() {
+	public String getTitle() 
+	{
 		return title;
 	}
-	public void setTitle(String title) {
+	public void setTitle(String title)
+	{
 		this.title = title;
 	}
-	public String getDescription() {
+	public String getDescription() 
+	{
 		return description;
 	}
-	public void setDescription(String description) {
+	public void setDescription(String description)
+	{
 		this.description = description;
 	}
-	public Users getCreatedBy() {
+	public Users getCreatedBy() 
+	{
 		return createdBy;
 	}
-	public void setCreatedBy(Users createdBy) {
+	public void setCreatedBy(Users createdBy) 
+	{
 		this.createdBy = createdBy;
 	}
-	public Date getPostedOn() {
+	public Date getPostedOn()
+	{
 		return postedOn;
 	}
-	public void setPostedOn(Date postedOn) {
+	public void setPostedOn(Date postedOn) 
+	{
 		this.postedOn = postedOn;
 	}
-	public boolean isApproved() {
+	public boolean isApproved()
+	{
 		return approved;
 	}
 	public void setApproved(boolean approved) {
 		this.approved = approved;
 	}
-	
+
 }
