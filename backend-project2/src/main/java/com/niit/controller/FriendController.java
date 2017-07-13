@@ -1,10 +1,8 @@
-
-package com.niit.controller;
+ package com.niit.controller;
 
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -79,10 +77,11 @@ public class FriendController
 			friendDao.updatePendingRequest(fromId, users.getUsername(),status);
 			return new ResponseEntity<Void>(HttpStatus.OK);
 	}
-	
-	@RequestMapping(value="/listoffriends",method=RequestMethod.POST)
-	public ResponseEntity<?>listOfFriends(@RequestBody Users users)
+
+	@RequestMapping(value="/listoffriends",method=RequestMethod.GET)
+	public ResponseEntity<?>listOfFriends(HttpSession session)
 	{
+		Users users=(Users)session.getAttribute("user");
 		
 		if(users==null)
 		{
@@ -90,7 +89,8 @@ public class FriendController
 			return new ResponseEntity<Error>(error,HttpStatus.UNAUTHORIZED);
 		}
 			List<Friend> friends=friendDao.listOfFriends(users.getUsername());
-			return new ResponseEntity<Void>(HttpStatus.OK);
+			return new ResponseEntity<List<Friend>>(friends,HttpStatus.OK);
 	}
+
 }
 
