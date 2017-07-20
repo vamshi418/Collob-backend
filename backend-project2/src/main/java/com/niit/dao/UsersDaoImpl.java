@@ -64,4 +64,14 @@ public void registration(Users users)
 		session.close();
 		return validUser;
 	}
+
+	public Users getUserByUsername(int id)
+	{
+		Session session=sessionFactory.openSession();
+		Users users=(Users)session.get(Users.class, id);
+		session.close();
+		return users;
+	}
+
+	
 }
