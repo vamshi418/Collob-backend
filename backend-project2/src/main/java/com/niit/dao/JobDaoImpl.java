@@ -32,12 +32,11 @@ public class JobDaoImpl implements JobDao
 		return jobs;
 	}
 	
-	public Job getJobById(int id) 
-	{
-		Session session=sessionFactory.openSession();
-		Job job=(Job)session.get(Job.class, id);
-		session.close();
-		return job;
-	}
+	public Job getJobById(int id) {
+        Session session=sessionFactory.openSession();
+        Job job=(Job)session.get(Job.class, id);
+        session.close();
+        return job;
+    }
 
 }

@@ -60,6 +60,7 @@ public ResponseEntity<?> getAllBlogs(@PathVariable int approved,HttpSession sess
 		return new ResponseEntity<Error>(error,HttpStatus.UNAUTHORIZED);
 	}
 	List<BlogPost> blogPosts=blogPostDao.getAllBlogs(approved);
+	System.out.println(blogPosts.size());
 	return new ResponseEntity<List<BlogPost>>(blogPosts,HttpStatus.OK);
 }
 
